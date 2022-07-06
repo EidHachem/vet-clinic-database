@@ -9,44 +9,33 @@ SELECT * from animals WHERE neutered;
 SELECT * FROM animals WHERE name != 'Gabumon';
 SELECT * FROM animals WHERE weight_kg BETWEEN '10.4' AND '17.3';
 
-UPDATE animals 
-SET weight_kg = weight_kg * -1
-WHERE name IN ('Charmander', 'Plantmon', 'Squirtle', 'Angemon');
-
-BEGIN
-UPDATE animals
-SET species = 'unspecified';
-ROLLBACK;
-
-BEGIN;
-UPDATE animals 
-SET species = 'digimon'
-WHERE name LIKE '%mon';
-UPDATE animals 
-SET species = 'pokemon'
-WHERE species IS NULL;
-COMMIT;
-
-BEGIN;
-DELETE FROM animals;
-ROLLBACK;
-
-BEGIN;
-DELETE FROM animals 
-WHERE date_of_birth > '2022-01-01';
-SAVEPOINT delete_ditto;
-UPDATE animals 
-SET weight_kg = weight_kg * -1;
-ROLLBACK TO SAVEPOINT delete_ditto;
-UPDATE animals 
-SET weight_kg = weight_kg * -1
-WHERE weight_kg < 0;
-COMMIT;
-
 SELECT COUNT(*) FROM animals;
 SELECT COUNT(*) FROM animals WHERE escape_attempts = 0;
 SELECT AVG(weight_kg) FROM animals;
 SELECT neutered ,AVG(escape_attempts) FROM animals GROUP BY neutered;
 SELECT species, MIN(weight_kg), MAX(weight_kg) FROM animals GROUP BY species;
 SELECT species, AVG(escape_attempts) FROM animals  WHERE date_of_birth BETWEEN '1990-01-01' AND '2000-12-31' GROUP BY species ;
+
+SELECT animals.name FROM animals 
+JOIN owners on animals.owners_id = owners.id WHERE owners.full_name = 'Melody Pond';
+
+SELECT animals.name FROM animals
+JOIN species on animals.species_id = species.id WHERE species.name = 'Pokemon';
+
+SELECT owners.full_name, animals.name FROM owners
+Left JOIN animals on owners.id = animals.owners_id;
+
+SELECT species.name, COUNT(*) FROM animals
+JOIN species on animals.species_id = species.id GROUP BY species.name;
+
+SELECT animals.name FROM animals
+JOIN owners on animals.owners_id = owners.id WHERE owners.full_name = 'Jennifer Orwell';
+
+SELECT animals.name FROM animals
+JOIN owners on animals.owners_id = owners.id WHERE owners.full_name = 'Dean Winchester' AND animals.escape_attempts = 0;
+
+SELECT owners.full_name, COUNT(animals.name) FROM owners
+LEFT JOIN animals on animals.owners_id = owners.id GROUP BY owners.id;
+
+
 
