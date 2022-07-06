@@ -29,7 +29,7 @@ SELECT species.name, COUNT(*) FROM animals
 JOIN species on animals.species_id = species.id GROUP BY species.name;
 
 SELECT animals.name FROM animals
-JOIN owners on animals.owners_id = owners.id WHERE owners.full_name = 'Jennifer Orwell';
+JOIN owners on animals.owners_id = owners.id WHERE owners.full_name = 'Jennifer Orwell' AND animals.name LIKE '%mon';
 
 SELECT animals.name FROM animals
 JOIN owners on animals.owners_id = owners.id WHERE owners.full_name = 'Dean Winchester' AND animals.escape_attempts = 0;
