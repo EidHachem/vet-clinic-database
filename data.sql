@@ -15,6 +15,89 @@ VALUES ('Charmander', '2020-02-08', 0, false, -11),
 ('Blossom', '1998-10-13', 3, true, 17),
 ('Ditto', '2022-05-14', 4, true, 22);
 
+INSERT INTO owners (full_name, age)
+VALUES ('Sam Smith', 34),
+('Jennifer Orwell', 19),
+('Bob', 45),
+('Melody Pond', 77),
+('Dean Winchester', 14),
+('Jodie Whittaker', 38);
+
+INSERT INTO species (name)
+VALUES ('Pokemon'),
+('Digimon');
+
+UPDATE animals 
+SET weight_kg = weight_kg * -1
+WHERE name IN ('Charmander', 'Plantmon', 'Squirtle', 'Angemon');
+
+BEGIN
+UPDATE animals
+SET species = 'unspecified';
+ROLLBACK;
+
+BEGIN;
+UPDATE animals 
+SET species = 'digimon'
+WHERE name LIKE '%mon';
+UPDATE animals 
+SET species = 'pokemon'
+WHERE species IS NULL;
+COMMIT;
+
+BEGIN;
+DELETE FROM animals;
+ROLLBACK;
+
+BEGIN;
+DELETE FROM animals 
+WHERE date_of_birth > '2022-01-01';
+SAVEPOINT delete_ditto;
+UPDATE animals 
+SET weight_kg = weight_kg * -1;
+ROLLBACK TO SAVEPOINT delete_ditto;
+UPDATE animals 
+SET weight_kg = weight_kg * -1
+WHERE weight_kg < 0;
+COMMIT;
+
+UPDATE animals
+SET species_id = 1;
+
+UPDATE animals
+SET species_id = 2
+WHERE name LIKE '%mon';
+
+UPDATE animals
+SET owners_id = 1 WHERE name='Agumon';
+
+UPDATE animals
+SET owners_id = 2 WHERE name='Gabumon';
+
+UPDATE animals
+SET owners_id = 2 WHERE name='Pikachu';
+
+UPDATE animals
+SET owners_id = 3 WHERE name='Devimon';
+
+UPDATE animals
+SET owners_id = 3 WHERE name='Plantmon';
+
+UPDATE animals
+SET owners_id = 4 WHERE name='Charmander';
+
+UPDATE animals
+SET owners_id = 4 WHERE name='Squirtle';
+
+UPDATE animals
+SET owners_id = 4 WHERE name='Blossom';
+
+UPDATE animals
+SET owners_id = 5 WHERE name='Angemon';
+
+UPDATE animals
+SET owners_id = 5 WHERE name='Boarmon';
+
 
 
 
