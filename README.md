@@ -2,6 +2,9 @@
 
 Vet clinic is a database that includes the animals table. Created using PostgreSql.
 
+
+![drawSQL-export-2022-07-12_15 14](https://user-images.githubusercontent.com/91761363/178487557-2f518a18-add4-4d40-9976-c6158ed73a44.png)
+
 ## Getting Started
 
 This repository includes files with plain SQL that can be used to recreate a database:
